@@ -12,7 +12,7 @@
 /* estilo boby */
 
 .body {
-    background-color: black;
+    background-color: rgb(255, 255, 255);
     min-height: 100vh;
     padding: 5px;
     ;
@@ -27,7 +27,7 @@
 .navContainer {
     background-color: black;
     padding: 10px;
-    border: 2px solid dodgerblue;
+    border-radius: 2px solid dodgerblue;
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -106,7 +106,7 @@ h2 {
 }
 
 .footerContainer {
-    background-color: black;
+    background-color: rgb(255, 255, 255);
     padding: 10px;
     border: 2px solid dodgerblue;
     color: dodgerblue;
@@ -192,7 +192,7 @@ h2 {
     padding: 1.3em;
     margin: 0 auto;
     background-color: rgbas(120, 119, 123, 0.3);
-    border-radius: 0.5em;
+    border-radius: 2px;
     box-shadow: inset 1px 1px 22px 4px rgba(226, 221, 221, 0.85);
     /*
     width: 100%;

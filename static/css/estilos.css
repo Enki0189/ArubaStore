@@ -1,18 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Tilt+Prism&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Prism&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&family=Tilt+Prism&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
 
 /* estilo gral en todas las paginas */
 
 * {
-    color: dodgerblue;
+    color: rgb(0, 0, 0);
 }
 
 
 /* estilo boby */
 
 .body {
-    background-color: black;
+    background-color: rgb(255, 255, 255);
     min-height: 100vh;
     padding: 5px;
 }
@@ -23,28 +26,79 @@
 
 /*contenedor padre*/
 
+
+/* Estilo de la barra de navegación */
+
 .navContainer {
-    background-color: black;
-    padding: 10px;
-    border: 2px solid dodgerblue;
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    font-family: 'Inconsolata', monospace;
-    font-size: 2vh;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    text-align: justify;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 5px;
+}
+
+.navContainer a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    position: relative;
+    width: 30%;
+    flex-grow: 2;
+    align-items: center;
+}
+
+.navContainer a:hover {
+    color: rgb(255, 0, 0);
+    /* Cambio de color al pasar el mouse */
 }
 
 h1 {
     font-family: 'Tilt Prism', cursive;
     font-size: 4vh;
     text-align: center;
+    color: rgb(255, 0, 0);
+    /* Cambia el color a tu preferencia */
+    overflow: hidden;
+    /* Oculta el texto que desaparecerá gradualmente */
+    white-space: nowrap;
+    /* Evita el salto de línea */
+    animation: typing 3s steps(40, end), blink-caret 0.5s step-end infinite;
 }
 
 h2 {
-    font-family: 'Didact Gothic', sans-serif;
+    font-family: 'Comic Sans MS', cursive;
+    /* Cambia la fuente a algo más divertido */
     text-align: center;
+    color: rgb(0, 0, 255);
+    /* Cambia el color a tu preferencia */
+    overflow: hidden;
+    /* Oculta el texto que desaparecerá gradualmente */
+    white-space: nowrap;
+    /* Evita el salto de línea */
+    animation: typing 3s steps(40, end), blink-caret 0.5s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blink-caret {
+    from,
+    to {
+        border-right-color: transparent;
+    }
+    50% {
+        border-right-color: black;
+        /* Cambia el color del cursor */
+    }
 }
 
 .description {
@@ -56,20 +110,42 @@ h2 {
 }
 
 .imagenNav {
-    padding: 10px;
+    padding: 5px;
     width: 70px;
     height: auto;
 }
 
+
+/* Estilo de la lista en la barra de navegación */
+
 .listaContainer {
-    display: flex;
     list-style: none;
+    display: flex;
     flex-wrap: wrap;
-    flex-grow: 2;
-    justify-content: space-around;
-    justify-items: center;
-    align-content: center;
     gap: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* Agregamos text-align para centrar horizontalmente */
+}
+
+.listaContainer li {
+    position: relative;
+}
+
+.listaContainer li::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: rgb(0, 0, 0);
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s;
+}
+
+.listaContainer li:hover::before {
+    width: 100%;
 }
 
 
@@ -87,34 +163,57 @@ h2 {
 }
 
 
-/*grid item*/
+/* Contenedor de las imágenes */
+
+
+/* Estilo de las imágenes en la sección de productos */
 
 .imagenProd {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: cover;
-    border: 3px solid;
+    width: auto;
+    height: auto;
+    transition: transform 0.2s;
+    box-sizing: border-box;
+    /* Incluimos el borde en el tamaño del elemento */
+    border: 2px solid rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    /* Agregamos border-radius para hacer el borde redondeado */
+}
+
+.imagenProd:hover {
+    transform: scale(1.05);
 }
 
 
 /* estilo footer */
 
 .footer {
-    bottom: 0;
-    width: 100%;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    text-align: justify;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 5px;
 }
 
 .footerContainer {
-    background-color: black;
-    padding: 10px;
-    border: 2px solid dodgerblue;
-    color: dodgerblue;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    font-family: 'Inconsolata', monospace;
-    font-size: 2vh;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    text-align: justify;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 5px;
 }
 
 .navFooter {
@@ -123,10 +222,35 @@ h2 {
     align-items: center;
 }
 
+.footer a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    position: relative;
+}
+
 .listaFooter {
     list-style: none;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+
+.listaFooter li {
+    position: relative;
+}
+
+.listaFooter li::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: rgb(0, 0, 0);
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s;
+}
+
+.listaFooter li:hover::before {
+    width: 100%;
 }
 
 .logoFooter {
@@ -139,15 +263,20 @@ h2 {
 /*estilo contacto*/
 
 .formulario-container {
-    width: 100%;
-    margin: auto;
-    display: grid;
+    display: center;
+    /* Espacio entre las secciones */
+    clear: both;
+    width: 80%;
+    /* Ajusta el ancho según tus necesidades */
+    margin: center;
+    /* Establece un margen automático para centrar horizontalmente */
+    display: center;
     grid-template-columns: repeat(2, 1fr);
     align-content: center;
     justify-content: center;
     justify-items: center;
-    gap: 40px;
-    margin-top: 90px;
+    gap: center;
+    margin-top: 30px;
 }
 
 .info-formulario {
@@ -173,8 +302,34 @@ h2 {
     text-decoration: none;
     width: 100%;
     margin-bottom: 15px;
-    color: dodgerblue;
+    color: rgb(0, 0, 0);
     font-weight: 700;
+    position: relative;
+    /* Agregamos posición relativa para poder posicionar el elemento ::before */
+}
+
+.formulario-container a::before {
+    content: '';
+    /* Agregamos contenido vacío */
+    position: absolute;
+    /* Posición absoluta en relación al enlace */
+    width: 0;
+    /* Ancho inicial cero para que esté oculta */
+    height: 2px;
+    /* Altura de la línea */
+    background-color: rgb(0, 0, 0);
+    /* Color de la línea */
+    bottom: 0;
+    /* Posicionamos la línea en la parte inferior del enlace */
+    left: 0;
+    /* Inicialmente, la línea comienza desde la izquierda */
+    transition: width 0.3s;
+    /* Agregamos una transición para crear el efecto de aparición */
+}
+
+.formulario-container a:hover::before {
+    width: 100%;
+    /* Al posar el cursor, expandimos el ancho a 100% */
 }
 
 .icono {
@@ -183,17 +338,39 @@ h2 {
 }
 
 .info {
-    padding: 10px;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: justify;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.info p {
+    margin: 0;
+}
+
+.info p:first-of-type::first-letter {
+    font-size: 36px;
+    color: #FF6B6B;
+    float: left;
+    margin-right: 8px;
+    margin-top: 8px;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
 }
 
 .formulario {
     width: 100%;
-    border: 2px solid;
+    border-radius: 5px;
     padding: 15px 10px;
     font-size: 15px;
     border: 3px solid;
     margin-bottom: 20px;
-    border-radius: 3px;
     outline: 0px;
     display: grid;
     grid-template-rows: repeat(4, 1fr);
@@ -212,13 +389,13 @@ h2 {
 
 .btn-enviar {
     opacity: 0.5;
-    background-color: dodgerblue;
+    background-color: rgb(255, 255, 255);
     font-size: 15px;
     margin-top: 20px;
     padding: 10px 5px;
     text-align: center;
     text-decoration: none;
-    text-shadow: -1px -1px 1px rgb(255, 255, 255);
+    text-shadow: -1px -1px 1px rgb(0, 0, 0);
 }
 
 .textarea-form {
@@ -228,7 +405,7 @@ h2 {
     padding: 10px 5px;
     text-align: center;
     text-decoration: none;
-    text-shadow: -1px -1px 1px rgb(255, 255, 255);
+    text-shadow: -1px -1px 1px rgb(0, 0, 0);
 }
 
 
@@ -237,7 +414,7 @@ h2 {
 .imagenPro {
     width: 200px;
     height: auto;
-    border: 2px solid dodgerblue;
+    border: 2px solid rgb(0, 0, 0);
 }
 
 
@@ -249,10 +426,67 @@ h2 {
     flex-direction: column;
 }
 
-.infor_container {
+.info-formulario,
+.info {
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: justify;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 5px;
+}
+
+.info-formulario,
+.info {
+    font-size: 36px;
+    color: #FF6B6B;
+    float: left;
+    margin-right: 3px;
+    margin-top: 3px;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+}
+
+campo {
+    color: #000;
+}
+
+
+/* Estilo para centrar el bloque de enlaces */
+
+.contact-info {
     display: flex;
-    flex-direction: column;
-    font-family: 'Didact Gothic', sans-serif;
+    justify-content: center;
+    /* Centrar horizontalmente los elementos */
+    text-align: center;
+    /* Centrar el texto dentro de los enlaces */
+}
+
+
+/* Estilo para los enlaces */
+
+.contact-info a {
+    text-decoration: none;
+    /* Quitar el subrayado de los enlaces si lo deseas */
+    color: #000;
+    /* Cambia el color de los enlaces si es necesario */
+    margin: 0 5px;
+    /* Agrega margen horizontal entre los enlaces si es necesario */
+}
+
+
+/* Estilo para las imágenes dentro de los enlaces */
+
+.contact-info img {
+    width: 20px;
+    /* Ajusta el ancho de las imágenes según tus necesidades */
+    height: auto;
+    margin-right: 5px;
+    /* Agrega margen entre las imágenes y el texto si es necesario */
 }
 
 .info,
@@ -266,30 +500,66 @@ h2 {
     object-fit: cover;
 }
 
-
-/* .infor_container{
-    display: flex;
-    border: solid dodgerblue;
-    justify-content: center;
-    flex-direction: row;
-} */
-
 .imagenes_info {
     width: 300px;
     height: auto;
 }
 
 .iconos_container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    font-family: 'Didact Gothic', sans-serif;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* Distribuye las columnas de manera uniforme */
+    gap: 20px;
+    /* Espacio entre las secciones */
+    clear: both;
+}
+
+.envios-nosotros,
+.ubicacion-nosotros,
+.medios-nosotros,
+.telfono-nosotros {
+    text-align: center;
+    /* Centra el contenido */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.envios-nosotros img,
+.ubicacion-nosotros img,
+.medios-nosotros img,
+.telfono-nosotros img {
+    max-width: 100px;
+    /* Ajusta el tamaño máximo de las imágenes */
+}
+
+.iconos_container h3 {
+    margin: 0;
+}
+
+.iconos_container p {
+    margin: 0;
 }
 
 .titulo_nosotros {
     order: -1;
     margin-bottom: 0;
+}
+
+.carousel-container {
+    width: 100%;
+    /* Ajusta el ancho del carrusel al 100% del contenedor */
+    height: 400px;
+    /* Ajusta la altura según tus necesidades */
+}
+
+.carousel-img {
+    object-fit: cover;
+    /* Mantiene la relación de aspecto y ajusta la imagen al tamaño del contenedor */
+    width: 100%;
+    height: 100%;
 }
 
 .mapa_nosotros {
@@ -306,7 +576,7 @@ h2 {
 
 .img_nosotros {
     padding: 10px;
-    background-color: black;
+    background-color: rgb(255, 255, 255);
     width: 70px;
     height: auto;
     backdrop-filter: blur(50px);

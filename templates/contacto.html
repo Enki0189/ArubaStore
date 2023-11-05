@@ -6,14 +6,14 @@
     <!-- contenedor item -->
     <div class="info-formulario">
         <h2 data-aos="fade-left" data-aos-anchor="#example-anchor" data-aos-offset="500" data-aos-duration="500">CONTACTENOS</h2>
-        <p data-aos="fade-right"> somos una empresa familiar que realiza muebles de diseño </p>
-        <a href="" https: "" class="info" data-aos="fade-down">
+        <p data-aos="fade-left"> Tazas Personalizadas </p>
+        <a href="" https: "" class="info contact-info" data-aos="fade-down">
             <img src="{{url_for('static', filename='Imagenes/WhatsApp_icon.png.ico')}}" alt="iconoWpp" class="icono">1555555555</a>
-        <a href="" https: class="info" data-aos="fade-down">
-            <img src="{{url_for('static', filename='Imagenes/emailIcono.ico')}}" alt="iconoMail" class="icono">lugia@gmail.com</a>
+        <a href="" https: class="info contact-info" data-aos="fade-down">
+            <img src="{{url_for('static', filename='Imagenes/emailIcono.ico')}}" alt="iconoMail" class="icono">arubastore.aj@gmail.com</a>
     </div>
     <!-- contenedor item-->
-    <form action="#" autocomplete="off" class="formulario">
+    <form action="#" autocomplete="off" class="info-formulario formulario">
         <input type="text" name="nombre" placeholder="Ingrese su nombre" class="campo">
         <input type="email" name="email" placeholder="Ingrese su email" class="campo">
         <textarea name="mensaje" placeholder="Ingrese un mensaje" class="textarea-form"></textarea>
@@ -26,4 +26,12 @@
         AOS.init();
     </script>
 </div>
+
+<!-- seccion mapa nosotros-->
+<div class="mapa-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.4223564030726!2d-58.474734625001894!3d-34.64403505962733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc9787acd168b%3A0x43e5df697aeff3e2!2sMart%C3%ADnez%20Castro%201039%2C%20C1407JXQ%20CABA!5e0!3m2!1ses-419!2sar!4v1684367386754!5m2!1ses-419!2sar"
+        height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+</div>
+<!-- fin seccion mapa nosotros-->
 {% endblock%}
