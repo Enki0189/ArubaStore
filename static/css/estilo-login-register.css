@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
 .cuadro {
     border: 2px solid;
-    border-color: dodgerblue;
+    border-color: rgb(70, 8, 10);
     padding: 2vw;
     margin-bottom: 2vw;
     font-family: 'Inconsolata', monospace;
