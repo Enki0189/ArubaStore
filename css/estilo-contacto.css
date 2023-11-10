@@ -5,14 +5,14 @@
 /* estilo gral en todas las paginas */
 
 * {
-    color: dodgerblue;
+    color: rgb(0, 0, 0);
 }
 
 
 /* estilo boby */
 
 .body {
-    background-color: black;
+    background-color: rgb(255, 255, 255);
     min-height: 100vh;
     padding: 5px;
     ;
@@ -25,9 +25,9 @@
 /*contenedor padre*/
 
 .navContainer {
-    background-color: black;
+    background-color: rgb(255, 255, 255);
     padding: 10px;
-    border: 2px solid dodgerblue;
+    border: 2px solid rgb(255, 30, 30);
     display: flex;
     flex-direction: row;
     align-content: center;
@@ -106,10 +106,10 @@ h2 {
 }
 
 .footerContainer {
-    background-color: black;
+    background-color: rgb(136, 134, 134);
     padding: 10px;
-    border: 2px solid dodgerblue;
-    color: dodgerblue;
+    border: 2px solid rgb(255, 255, 255);
+    color: rgb(255, 30, 30);
     display: flex;
     justify-content: space-between;
     align-content: center;
@@ -179,7 +179,6 @@ h2 {
     margin-bottom: 15px;
     color: dodgerblue;
     font-weight: 700;
-    
 }
 
 .icono {
@@ -188,7 +187,30 @@ h2 {
 }
 
 .info {
-    padding: 10px;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: justify;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+}
+
+.info p {
+    margin: 0;
+}
+
+.info p:first-of-type::first-letter {
+    font-size: 36px;
+    color: #FF6B6B;
+    float: left;
+    margin-right: 8px;
+    margin-top: 8px;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-weight: bold;
 }
 
 .formulario {
@@ -246,8 +268,7 @@ h2 {
 
 .modal-body {
     text-shadow: -1px -1px 1px rgb(255, 255, 255);
-    border: dodgerblue solid;
-
+    border: rgb(0, 0, 0) solid;
 }
 
 
