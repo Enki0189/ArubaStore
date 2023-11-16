@@ -2,12 +2,12 @@ from application.model.Producto import Producto
 
 class ProductosDao:
     
-    def __init__(self, mysql):
-        self.mysql = mysql
+    def __init__(self, db_connection):
+        self.mysql = db_connection.mysql
 
     def insertar_producto(self, producto):
         cur = self.mysql.connection.cursor()
-        cur.execute('INSERT INTO productos (nombreProducto, descripcion, precio, stock, urlImagen) VALUES (%s, %s, %s, %s, %s)', (producto.nombre_producto, producto.descripcion, producto.precio, producto.stock, producto.url_imagen))
+        cur.execute('INSERT INTO productos (NombreProducto, descripcion, precio, stock, urlImagen) VALUES (%s, %s, %s, %s, %s)', (producto.nombre, producto.descripcion, producto.precio, producto.stock, producto.imagen))
         self.mysql.connection.commit()
     
     def obtener_productos(self):

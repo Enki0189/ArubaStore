@@ -4,11 +4,10 @@ from application.db.dao.ProductosDao import ProductosDao
 from application.model.Producto import Producto
 
 class ProductosController:
-    def __init__(self, app, mysql):
+    def __init__(self, app, db_connection):
         self.app = app
-        self.mysql = mysql
         self.register_routes()
-        self.productos_dao = ProductosDao(mysql)
+        self.productos_dao = ProductosDao(db_connection)
 
     #Se definen endpoints de productos
     def register_routes(self):
@@ -54,8 +53,7 @@ class ProductosController:
             flash('Producto creado exitosamente!', 'success')
             return redirect(url_for('productos'))
         except Exception as e:
-            self.mysql.connection.rollback()
-            print("Error: {e}")
+            print(f"Error: {e}")
             flash('Hubo un error al crear el producto. Por favor intenta nuevamente.', 'danger')
 
         return redirect(url_for('abmProducto'))
