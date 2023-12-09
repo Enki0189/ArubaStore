@@ -15,7 +15,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
-
+    <script src="{{url_for('static', filename='/js/index.js')}}"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script src="{{ url_for('static', filename='js/producto.js') }}"></script>
     <script src="./js/carrito.js"></script>
     <title>Aruba Store - Tazas Personalizadas</title>
 </head>
@@ -24,47 +26,45 @@
     <!--encabezado-->
     <header class="headerContainer">
         <!--barea de navegacion-->
-        <nav class="navContainer">
-            <div>
-                <ul class="listaContainer">
-                    <img src="{{url_for('static', filename='./Imagenes/logoAruba.png')}}" alt="lugiaLogo" class="imagenNav">
-                    <ul class="listaContainer">
-                        <li class="listaItem" onclick="window.open('{{ url_for('index') }}', '_self')">Inicio</li>
-                        <li class="listaItem" onclick="window.open('{{ url_for('nosotros') }}', '_self')">Nosotros</li>
-                        <li class="listaItem" onclick="window.open('{{ url_for('productos') }}', '_self')">Productos</li>
-                        <li class="listaItem" onclick="window.open('{{ url_for('contacto') }}', '_self')">Contacto</li>
-                        {% if session.get('tipo_usuario') == 'Vendedor' %}
-                        <li class="listaItem" onclick="window.open('{{ url_for('abmProducto') }}', '_self')">abmProducto</li>
-                        {% endif %} {% if not session.get('logged_in') %}
-                        <li class="listaItem" id="inicio-sesion" onclick="window.open('{{ url_for('login') }}', '_self')">Iniciar sesión</li>
-                        <li class="listaItem" id="registro" onclick="window.open('{{ url_for('register') }}', '_self')">Registrarse</li>
-                        {% else %}
-                        <li class="listaItem" onclick="window.open('{{ url_for('logout') }}', '_self')">Cerrar sesión</li>
-                        {% endif %}
-                        <li>
-                            <div class="cart">
-                                <button id="botonCarrito" class="btn-carrito" data-bs-toggle="modal" data-bs-target="#modalCarrito">
-                                    <i class='bi bi-cart-fill'></i>
-                                </button>
-                                <span id="item_total">0</span>
-                            </div>
-                        </li>
-                    </ul>
-
-            </div>
-
+        <nav class="navbar navContainer">
+            <img src="{{url_for('static', filename='./Imagenes/lugiaLogo.jpeg')}}" alt="lugiaLogo" class="imagenNav navbar-brand">
+            <ul class="listaContainer">
+                <li class="listaItem"><a href="{{ url_for('index') }}" target="_self">Inicio</a></li>
+                <li class="listaItem"><a href="{{ url_for('nosotros') }}" target="_self">Nosotros</a></li>
+                <li class="listaItem"><a href="{{ url_for('productos') }}" target="_self">Productos</a></li>
+                <li class="listaItem"><a href="{{ url_for('contacto') }}" target="_self">Contacto</a></li>
+                {% if session.get('tipo_usuario') == 'Vendedor'%}
+                <li class="listaItem"><a href="{{ url_for('abmProducto') }}" target="_self">abmProducto</a></li>
+                {% endif %} {% if not session.get('logged_in') %}
+                <li class="listaItem" id="inicio-sesion"><a href="{{ url_for('login') }}" target="_self">Iniciar sesión</a></li>
+                <li class="listaItem" id="registro"><a href="{{ url_for('register') }}" target="_self">Registrarse</a></li>
+                {% else %}
+                <li class="listaItem"><a href="{{ url_for('pagUsuario') }}" target="_self">Mi cuenta</a></li>
+                <li class="listaItem"><a href="{{ url_for('logout') }}" target="_self">Cerrar sesión</a></li>
+                {% endif %}
+                <li>
+                    <div class="cart">
+                        <button id="botonCarrito" class="btn-carrito" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+                        <i class="bi bi-cart2"> </i>
+                        <span id="item_total">${% if session.get('totalprice') %} {{session.get('totalprice')}} {% else %} 0 {% endif %}</span>
+                        </button>
+                    </div>
+                </li>
             </ul>
         </nav>
-        <!--fin barra de navegacion -->
+        <!-- fin barra de navegacion -->
     </header>
     <!-- fin encabezado -->
-
-    <div class="container">
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in messages %}
+    <div class="flash-message">
+        <p>{{msg}}</p>
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
+    <div class="cuerpo container pt-4">
         {% block body%} {% endblock %}
     </div>
 
     <!-- footer -->
-
     <div class="footerContainer">
         <ul class="listaContainer">
             <img src="{{url_for('static', filename='./Imagenes/logoAruba.png')}}" alt="logo" class="logoFooter">
@@ -78,25 +78,63 @@
         </ul>
 
     </div>
-
-
     <!-- fin footer -->
 
     <!-- Modal -->
     <div class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
+                <div class="row">
+                    <div class="col-10">
+                        <h3 class="modal-title" id="exampleModalLabel">Carrito</h3>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
                 <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Carrito</h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div id="bodyCarrito">
+                        <div class="cart-body">
+                            <form method="post" action="/checkout">
+                                {% if session["cart"] == [] %}
+                                <div class="cart-text">
+                                    <p id="empty-cart">Carrito vacío</p>
+                                    <i class="bi bi-cart-plus"></i>
+                                </div>
+                                {% else %}
+                                <table class="table">
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Descripcion</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio unitario</th>
+                                    </tr>
+
+                                    {% for product in session["cart"] %}
+                                    <tr>
+                                        <td id="nombre">{{product.name}}</td>
+                                        <td id="descripcion">{{product.descripcion}}</td>
+                                        <td id="cantidad">{{product.quantity}}</td>
+                                        <td id="precio">{{product.price}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <th></th>
+                                        <th>Precio total</th>
+                                        <th></th>
+                                        <th>${% if session.get('totalprice') %} {{session.get('totalprice')}} {% else %} 0 {% endif %}</th>
+                                    </tr>
+
+                                </table>
+                                <button type="submit">Comprar</button>
+                                <button type="button"><a href="{{ url_for('empty_cart') }}" target="_self">Vaciar carrito</a></button>
+                            </form>
+                            {% endif%}
+                        </div>
+                    </div>
                 </div>
-                <div id="bodyCarrito">
-                    <p class="p-size">Carrito vacio</p>
-                </div>
-                <div id="btnModal" class="modal-footer"></div>
             </div>
         </div>
-    </div>
 
 </body>
 

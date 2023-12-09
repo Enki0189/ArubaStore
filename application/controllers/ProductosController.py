@@ -1,4 +1,5 @@
 from flask import flash, redirect, render_template, request, url_for
+from flask import session
 
 from application.db.dao.ProductosDao import ProductosDao
 from application.model.Producto import Producto
@@ -13,7 +14,9 @@ class ProductosController:
     def register_routes(self):
         self.app.add_url_rule('/productos', 'productos', self.productos)
         self.app.add_url_rule('/producto', 'producto', self.producto)
+        self.app.add_url_rule('/empty_cart', 'empty_cart', self.empty_cart)
         self.app.add_url_rule('/producto', 'crearProducto', self.crear_producto, methods=['POST'])
+        self.app.add_url_rule('/add_to_cart', 'add_to_cart', self.add_to_cart, methods=['POST'])
         self.app.add_url_rule('/producto/<int:id>', 'editarProducto', self.editar_producto, methods=['PUT'])
         self.app.add_url_rule('/producto/<int:id>', 'borrarProducto', self.borrar_producto, methods=['DELETE'])
         self.app.add_url_rule('/abmProducto', 'abmProducto', self.abm_producto)
@@ -30,9 +33,46 @@ class ProductosController:
         for product in db_products:
             productos_json.append(product.transformar_a_json())
         
+        if "cart" not in session :
+            session["cart"] = []
+        print(session["cart"])
+        if "totalprice" not in session :
+            session["totalprice"] = 0
+        session["productosCargados"] = productos_json 
+        
         #Se retorna el template con los productos cargados en formato json en la variable products del template
         return render_template('productos.html', products=productos_json)
 
+    def add_to_cart(self):
+        item_id = int(request.form["id"])
+        print(item_id)
+
+        # Buscar el producto en session["productosCargados"] usando una función lambda
+        selected_product = next((product for product in session["productosCargados"] if product["id"] == item_id), None)
+
+        if selected_product:
+            # Buscar el producto en session["cart"] usando una función lambda
+            cart_product = next((product for product in session["cart"] if product["id"] == item_id), None)
+
+            if cart_product:
+                # Incrementar la propiedad "quantity" en 1 si ya existe en el carrito
+                cart_product["quantity"] += 1
+            else:
+                # Agregar el producto al carrito con "quantity" establecido en 1
+                selected_product["quantity"] = 1
+                session["cart"].append(selected_product)
+
+            product_price = selected_product["price"].replace('$', '').replace(',', '')
+            session["totalprice"] = float(session["totalprice"]) + float(product_price)
+
+        return redirect(url_for('productos'))
+
+    def empty_cart(self):
+        session["cart"] = []
+        session["totalprice"] = 0
+        flash('Se han eliminado todos los productos del carrito', 'success')
+        return redirect(url_for("productos"))
+    
     def producto(self):
         return render_template("producto.html")
     

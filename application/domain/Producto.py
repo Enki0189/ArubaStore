@@ -1,12 +1,12 @@
 class Producto:
-    def __init__(self, id, nombre, descripcion, precio, stock, imagen):
+    def __init__(self, id, nombre, descripcion, cantidad, precio, imagen):
         self.id = id
         self.nombre = nombre
         self.descripcion = descripcion
+        self.cantidad = cantidad
         self.precio = precio
-        self.stock = stock
         self.imagen = imagen
-
+    
     def transformar_a_json(self) :
         price_value = self.precio 
         formatted_price = "${:,.2f}".format(float(price_value))
@@ -18,6 +18,3 @@ class Producto:
             "imagen": self.imagen,
             "price": formatted_price
         }
-        
-    def actualizar_stock(self, stock):
-        self.stock = stock
