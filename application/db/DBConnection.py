@@ -7,5 +7,5 @@ class DBConnection:
         app.config['MYSQL_HOST'] = 'localhost'
         app.config['MYSQL_USER'] = 'root'
         app.config['MYSQL_PASSWORD'] = '010420'
-        app.config['MYSQL_DB'] = 'lugia_design'
+        app.config['MYSQL_DB'] = 'aruba_store'
         self.mysql = MySQL(app)
