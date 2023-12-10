@@ -601,3 +601,36 @@ h3 {
     object-fit: cover;
     /* Ajusta el tamaño de la imagen para que cubra todo el contenedor sin distorsionarse */
 }
+
+.flash-message {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vw;
+    padding-top: 1vw;
+    width: 50%;
+    text-align: center;
+    border: 1px solid rgb(234, 55, 55);
+}
+.p-size {
+    margin-top: 1vw;
+}
+
+.prod-checkout-img {
+    height: 7vw;
+    width: auto;
+}
+
+.btn-close {
+    margin-top: 15px;
+}
+
+.boton-carrito {
+    border: 1px solid red !important;
+    color: red !important;
+    margin-bottom: 20px;
+}
+
+.boton-carrito:hover {
+    background-color: rgb(251, 201, 201) !important;
+    box-shadow: 2px 2px 4px rgb(245, 44, 33);
+}
